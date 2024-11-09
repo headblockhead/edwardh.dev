@@ -78,9 +78,11 @@ footer {
 	padding: 10px;
 	margin:0px;
 	display: flex;
-	justify-content: space-between;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 footer>* {
 	margin: 0px;
+	/* min-width: 200px; */
 	width: fit-content;
 }
