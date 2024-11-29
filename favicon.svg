@@ -25,12 +25,12 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="14.64867"
-     inkscape:cx="15.462155"
+     inkscape:cx="0.75092141"
      inkscape:cy="15.76935"
-     inkscape:window-width="1600"
-     inkscape:window-height="831"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="32"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -71,16 +71,10 @@
        ry="1.3229166"
        inkscape:label="rect1"
        transform="rotate(-90)" />
-    <text
-       xml:space="preserve"
-       style="font-size:5.29167px;fill:#ffffff;fill-opacity:1;stroke-width:0.463001"
-       x="0.69302666"
-       y="6.157577"
-       id="text1"><tspan
-         sodipodi:role="line"
-         id="tspan1"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;font-family:Inter;-inkscape-font-specification:Inter;fill:#ffffff;fill-opacity:1;stroke-width:0.463001"
-         x="0.69302666"
-         y="6.157577">EH</tspan></text>
+    <path
+       style="font-size:5.29167px;font-family:Inter;-inkscape-font-specification:Inter;fill:#ffffff;stroke-width:0.463001"
+       d="M 1.0754325,6.157577 V 2.3076805 H 3.5791571 V 2.7210922 H 1.5405207 V 3.9794141 H 3.4292954 V 4.3928258 H 1.5405207 V 5.7441653 H 3.5791571 V 6.157577 Z m 3.066998,0 V 2.3076805 H 4.6075187 V 3.9794141 H 6.6590743 V 2.3076805 H 7.1241624 V 6.157577 H 6.6590743 V 4.3928258 H 4.6075187 V 6.157577 Z"
+       id="text1"
+       aria-label="EH" />
   </g>
 </svg>
