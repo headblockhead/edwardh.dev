@@ -45,6 +45,8 @@ flex-wrap: wrap;
 	outline: 1px solid var(--outline);
 				border-radius: 5px;
 				padding: 2px;
+				padding-left:4px;
+				padding-right:4px;
 				margin: 2px;
 }
 .email-noscript {
