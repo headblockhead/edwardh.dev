@@ -1,0 +1,10 @@
+mimetypes:
+  text/html: html
+  text/markdown: markdown
+  text/plain: plain
+site:
+  baseurl: http://edwardh.dev
+  language: en
+zas:
+  deploy: .zas/deploy
+  layout: .zas/layout.html
