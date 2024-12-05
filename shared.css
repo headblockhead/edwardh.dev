@@ -47,6 +47,7 @@ h1 {
 	font-weight: 700;
 }
 article {
+	flex: 1;
 	content-visibility: auto;
 	margin:8px;
 	padding-left: 10px;
@@ -58,6 +59,10 @@ article {
 	margin-right: auto;
 }
 body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
