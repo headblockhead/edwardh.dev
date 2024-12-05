@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
       - name: Run ZAS
-        run: zas
+        run: $GOBIN/zas
       - name: Upload artifact
         uses: actions/upload-pages-artifact@2d163be3ddce01512f3eea7ac5b7023b5d643ce1
         with:
