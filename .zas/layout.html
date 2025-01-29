@@ -9,12 +9,12 @@
         <meta name="description" content="{{index .Page "description"}}" />
         <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
 
+        {{if index .Page "containsEmail"}}
+        <script>document.addEventListener("DOMContentLoaded",(function(){let e=document.getElementById("email"),t="",n=e.textContent;for(let e=0;e<n.length;e+=2)t+=String.fromCharCode(20^parseInt(n.substr(e,2),16));e.innerHTML=t,e.href="mailto:"+t}));</script>
+        {{end}}
+
         <link rel="stylesheet" href="/shared.css" />
         <link rel="stylesheet" href="index.css" />
-        <script src="email-deobfuscate.js"></script>
-
-        <link rel="prefetch" href="/projects" />
-        <link rel="prefetch" href="/projects/slab" />
     </head>
     <body>
         <header>

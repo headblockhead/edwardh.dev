@@ -2,6 +2,112 @@
     title: Slab Keyboard
     description: A modular mechanical keyboard system that snaps together with magnets.
 -->
-            <hr/>
-        <p>🚨🚧 UNDER CONSTRUCTION! 🚧🚨</p>
-            <hr/>
+
+<h1>Slab Keyboard <sup>v3</sup></h1>
+<p>An open-source modular mechanical keyboard system.</p>
+
+<h2>GitHub Links</h2>
+<ul>
+    <li><a href="https://github.com/headblockhead/slab">headblockhead/slab</a></li>
+    <li><a href="https://github.com/headblockhead/slab-firmware">headblockhead/slab-firmware</a></li>
+    <li><a href="https://github.com/headblockhead/SQUIRREL">headblockhead/SQUIRREL</a></li>
+    <li><a href="https://github.com/headblockhead/slab-case">headblockhead/slab-case</a></li>
+    <li><a href="https://github.com/headblockhead/slab-pcb">headblockhead/slab-pcb</a></li>
+    <li><a href="https://github.com/headblockhead/OpenRGB">headblockhead/OpenRGB</a> (fork with Slab V2 support)</li>
+    <li><a href="https://github.com/headblockhead/pico-ssd1306">headblockhead/pico-ssd1306</a> (fork with Nix Flake support)</li>
+</ul>
+
+<h2>Feature List</h2>
+<ul>
+    <li>USB-C</li>
+    <li>Hot-swap switches</li>
+    <li>Column-staggered ortholinear layout</li>
+    <li>Full per-key RGB LED lighting</li>
+    <li>South-facing switches</li>
+    <li>MX, Choc V1, or Choc V2 switch support</li>
+    <li>4-Pin magnetic connectors for chaning modules</li>
+    <li>128x32 OLED displays</li>
+    <li>Analog sliders read with a 16-bit ADC</li>
+    <li>Onboard buzzer/beeper</li>
+    <li>Low-profile rotary encoders, with a shine-through LED</li>
+    <li>Optional TRRS support for chaining modules too!</li>
+</ul>
+
+<h2>Video showcase</h2>
+
+<p>I recorded <a href="https://youtube.com">a quick showcase video</a> for the project, to show off the hardware in its final form. Enjoy!</p>
+
+<h2>Hardware</h2>
+
+<p>All hardware is open-source, with custom-designed PCBs for each module, made in KiCAD. The 3D-Printable cases are generated using an OpenSCAD script to allow for quick and easy production of new cases.</p>
+
+<h3>3D-Printable case</h3>
+
+<p>Originally, the case was designed using FreeCAD, however after making one case, I realised it would take too long, and be incredibly boring, to make many of the same, slightly different keyboard cases. I had heard of OpenSCAD (a script-based CAD program where models are defined programmatically), and wanted to know more about it.</p>
+
+<p>I decided to design the case as my very first OpenSCAD project, using a central 'case.scad' file to control the main generation of cases so all cases could be updated simultaneously. I defined each case's width, height, and stagger-amounts in variables stored in each case file. (e.g. 'right.scad')</p>
+
+<h3>Circuitboard design considerations</h3>
+
+<p>I chose to use IO expanders to read each switch separately instead of wiring them in a matrix, as it decreases the component count and assembly cost by removing the need for diodes, and frees GPIO to allow for adding more features, such as RGB LEDs and rotary encoders.</p>
+
+<p>I also chose to use a Seed Studio Xiao RP2040, instead of adding the RP2040 directly to the PCB as it makes the board possible to hand-solder using just an iron, making prototyping significantly cheaper as factory assembly services are not required for prototypes.</p>
+
+<p>I added UART pins for debugging the board while developing, however I didn't get much use from them as most issues I encountered either hung or crashed the processor, meaning log output either froze, or simply never occured. The most important pins for debugging are single-wire-debug (SWD) pins, which sadly aren't exposed on the Xiao RP2040, so most debugging used educated-guesswork, along with countless reads and re-reads of the communication code.</p>
+
+<p>For communication between modules, I chose to use I²C, but not how it is used typically. Typically, all devices share a single bus, and a master controls slaves using a 7-bit address, however this means board addresses must be managed centrally making future or community-added boards potentially incompatible with eachother.</p>
+
+<p>Instead, I decided to use the RP2040's two I²C buses, each board being both a master and a slave. Each board's master bus controlls onboard hardware, for example the IO expanders and display, but crucially also acts as the master for other board's slave bus. This means boards could <em>theoretically</em> be chained together infinitely, without running out of addresses.<p>
+
+<p>This introduces some unique challenges when, for example, the USB port is not plugged in to the leftmost board, 'layer' keys are used, or more than three boards are connected. I'll discuss more on how I solved these issues in the firmware section.</p>
+
+<h3>Mistakes and revisions</h3>
+
+<p>My first PCB had a fatal flaw, the magnetic connectors had been flipped upside-down in the design, connecting voltage directly to ground when boards were connected.</p>
+
+<p>A few other changes I had to make were due to simple circuit errors, such as accidently adding a transistor to step up the voltage of a 3V buzzer to 5V, and creating some magic smoke.</p>
+
+<p>One very strange issue I found was that the top half of the analog sliders entirely registered as 100%, despite the slider clearly not being at its max position. I guessed that the ADC was reading a higher voltage than it could handle, and I re-read through its datasheet. Sure enough, it expects a max of 2.048V to compare with its onboard reference. I calculated the correct resistance of resistor to add before the slider, and to test, I simulated the circuit, then bodged my current circuitboard by cutting the trace, and soldering a resistor of approximately the correct value in-between the broken trace. I tested it, and it worked great! Finally, I updated the next revision of the PCB to include a spot for an SMD resistor of equivalent value.</p>
+
+<h2>Firmware</h2>
+
+<p>The firmware was written from scratch in C for the RP2040, using the Pico SDK and TinyUSB libraries. All keyboard logic is implemented in my <a href="https://github.com/headblockhead/SQUIRREL">SQUIRREL</a> library, to provide QMK-style layers.</p>
+
+<p>A speicific goal I wanted to achieve by creating and using my own keyboard library is to remap keys while the keyboard is running, and to make implementing the communication between modules easier by having control over the code and interfaces with the keyboard logic.</p>
+
+<p>Because I thought it'd be cool, I made keys call simple arbitrary functions when pressed or released, meaning that the keys on your keyboard <em>can</em> be mapped to standard keyboard keys, a function which SQUIRREL provides, but could theoretically do <strong>anything</strong>!
+
+<h3>Unique challenges</h3>
+
+<h4>Communication</h4>
+
+<p>I²C is one-way. Data is sent from master to slave, or data is read from the slave to the master. The slave never transmits to the master. This is a problem, as we need boards to share data bi-directionally! A solution to this is to have the master constantly request data from the slave (polling), which uses some I²C bus time every cycle of the main loop, but is OK for this usage (transmitting small amounts of data quickly).</p>
+
+<p>Because there is no single board controlling all of the others, I initially differentiated the boards based on which one had a USB plugged into it, commanding all other boards to send data towards that board. This worked initially, but was fundamentally incompatible with other features, like sharing the currently active keyboard layers across all boards.</p>
+
+<p>I re-wrote the entire communication protocol to be based on the leftmost and rightmost boards in a chain of boards strung together.</p>
+
+<p>Boards detect whether they are leftmost, rightmost, or somewhere in the middle by first attempting to read from their slave board (to the left). If the read is not acknowledged, the keyboard assumes there are no other keyboard on its left, and 'leftmost' is true. To detect if boards are in the rightmost position, each board sends 'alive' packets (single bytes) to the slave to its left every ~25ms. If a slave detects it hasn't recieved any 'alive' packets in 100ms, it assumes it has no boards on its right, so 'rightmost' is true. If non of these contitions are true, the board is somewhere between other boards.</p>
+
+<p>Now that we know which board is the leftmost, and which is the rightmost, the rightmost board can start a communication chain.</p>
+
+<ol>
+    <li>First, the rightmost board sends an 'accumulation' packet leftward (<strong>down</strong> the chain), that contains the rightmost board's keyboard data (keys pressed, modifiers, layers, etc.).</li>
+    <li>Then, the next board in the chain adds its own keyboard data to the packet and forwards it another step down the chain. (hence 'accumulation')</li>
+    <li>This repeats until the accumulation packet has reached the leftmost (bottom) board.</li>
+    <li>Instead of forwarding the accumulation packet, the leftmost board stores it into the keyboard system, where it is then read by the board before it. (<strong>up</strong> the chain)</li>
+    <li>The board before the leftmost board stores the packet, where it is then read by the next one up the chain, and so on.</li>
+    <li>This repeats until the accumulated packet reaches the rightmost board, which stores it, meaning all boards now share the same data, so the rightmost board can restart the whole process again.</li>
+</ol>
+
+<h3>Building + CI</h3>
+
+<p>I chose Nix for building all of the Slab project's files, as I am familliar with it, it creates a convinient way of <strong>exactly</strong> reproducing a commit's firmware file for support and debugging, and helps to keep builds consistent between CI, maintainers, contributers, forks, etc.</p>
+
+<p>I made a fork of a popular SSD1306 (OLED display) driver for the RP2040 to add a Nix flake, allowing me to pin the exact versions of libraries the project uses per-commit, which Git's submodules feature struggles to do reliably.</p>
+
+<h2>Software</h2>
+
+<p>There is no current software for the V3 Slab keyboard. I created a fork of OpenRGB for controlling V2's LEDs, however that now needs to be overhauled as the keyboard can <em>change size</em> while plugged in, which is difficult to manage.</p>
+
+<p>I plan to add OpenRGB support in the future, but the most important thing right now is to get the keyboard stable, and to flesh-out other aspects of the firmware, for example rotary encoder and slider support.</p>
