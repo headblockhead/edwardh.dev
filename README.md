@@ -1,6 +1,6 @@
 # [edwardh.dev](https://edwardh.dev)
 
-A handwriten HTML and CSS site to showcase my projects and achievements.
+A handwriten HTML and CSS site to showcase my projects and achievements. Designed to load as fast as possible, use minimal styling, and be viewable on any browser.
 
 Uses [Zas](https://github.com/darccio/zas) to template-in the header, footer, and meta tags (title, description, CSS).
 
