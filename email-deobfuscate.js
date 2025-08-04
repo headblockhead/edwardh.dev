@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",(function(){let e=document.getElementById("email"),t="",n=e.textContent;for(let e=0;e<n.length;e+=2)t+=String.fromCharCode(20^parseInt(n.substr(e,2),16));e.innerHTML=t,e.href="mailto:"+t}));
