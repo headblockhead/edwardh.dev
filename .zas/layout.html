@@ -2,9 +2,9 @@
 <html lang="en">
     <head>
         <title>{{.Title}}</title>
-        <meta name="author" content="Edward Hesketh" />
-        <meta name="viewport" content="width=device-width" />
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="author" content="Edward Hesketh" />
         <meta name="description" content="{{index .Page "description"}}" />
         <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
 
@@ -16,30 +16,30 @@
         <link rel="stylesheet" href="index.css" />
     </head>
     <body>
-        <header>
-            <div class="header">
-            <div>
+        <header style="padding: 10px; margin: 0px;">
+            <div style="width: 1200px; max-width: 100%; margin: auto;">
                <a class="title" href="/">edwardh.dev</a>
                 <div class="path">
                     <small>{{.Path}}</small>
                 </div>
             </div>
-            <div>
-                <a href="https://github.com/headblockhead">
-                    <img src="/github-mark-white.svg" alt="GitHub" class="header-right-image"/>
-                </a>
-            </div>
-            </div>
         </header>
         <article>
             {{.Body}}
         </article>
-        <footer>
-            <div class="footer">
-            <small><a href="https://github.com/headblockhead/edwardh.dev">Open source on GitHub</a>, written from scratch by Edward Hesketh.</small>
-            <br />
-            <small dir="rtl">Last updated <time datetime="2025-08-04">2025-08-04</time></small>
-            </div>
+        <footer style="padding: 10px; margin: 0px;">
+            <table style="width: 1200px; max-width: 100%; margin: auto;">
+                <tbody>
+                    <tr>
+                        <td style="text-align: left;">
+                            <small>Written in plain HTML.</small>
+                        </td>
+                        <td style="text-align: right;">
+                            <small>Content on this site is licenced under a <a href="https://creativecommons.org/licenses/by-nd/4.0/">Creative Commons Attribution-NoDerivatives 4.0 International licence</a>.</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </footer>
     </body>
 </html>
