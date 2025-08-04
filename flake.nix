@@ -18,19 +18,19 @@
         vendorHash = "sha256-3SPAc4X03aMckSs4hkVnT8ARTGV7gTudVvoe2OHX7PQ=";
       };
     in
-    rec {
+    {
       packages.edwardh-dev = pkgs.stdenv.mkDerivation {
         name = "edwardh-dev";
         src = ./.;
-        buildInputs = [ zas ];
+        buildInputs = [ zas pkgs.minify ];
         buildPhase = ''
           zas
+          minify -rs .zas/deploy/ -o minified
         '';
         installPhase = ''
           mkdir -p $out
-          cp -r .zas/deploy/. $out
+          cp -r minified/. $out
         '';
       };
-      packages.default = packages.edwardh-dev;
     };
 }
