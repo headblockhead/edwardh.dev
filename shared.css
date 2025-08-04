@@ -24,6 +24,7 @@ h1 {
 }
 .title {
 	font-size: 2em;
+	color: black; 
 	color: var(--fg);
 	text-decoration: none;
 	font-weight: 700;
@@ -38,15 +39,9 @@ article {
 }
 body {
 	min-height: 100vh;
-
-	font-family: system-ui;
-	font-optical-sizing: auto;
-	font-weight: 400;
-	font-style: normal;
-
+	font-family: sans-serif, system-ui;
 	background-color: var(--bg);
 	color: var(--fg);
-
 	margin:0px;
 }
 a {
