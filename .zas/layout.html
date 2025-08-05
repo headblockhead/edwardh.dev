@@ -15,16 +15,15 @@
         <link rel="stylesheet" href="/shared.css" />
         <link rel="stylesheet" href="index.css" />
     </head>
-    <body>
+    <body style="min-height: 100vh; font-family: system-ui, sans-serif; background-color: var(--bg); color: var(--fg); margin:0px;">
         <header style="padding: 10px; margin: 0px;">
             <div style="width: 1200px; max-width: 100%; margin: auto;">
-               <a class="title" href="/">edwardh.dev</a>
-                <div class="path">
-                    <small>{{.Path}}</small>
-                </div>
+                <a href="/" style="font-size:2em; color: black; color: var(--fg); text-decoration: none; font-weight: 700;">edwardh.dev</a>
+                <br />
+                <small>{{.Path}}</small>
             </div>
         </header>
-        <article>
+        <article style="margin:8px;	margin-top: 16px;	width: 1200px; max-width: calc(100% - 20px); margin-left: auto; margin-right: auto;">
             {{.Body}}
         </article>
         <footer style="padding: 10px; margin: 0px;">
