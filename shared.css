@@ -1,58 +1,67 @@
-:root {
-	--bg: #353535;
-	--fg: #ffffff;
-	--outline: #1b1b1b;
-
-	--accent-1: #99c1f1;
-	--accent-2: #62a0ea;
-	--accent-3: #3584e4;
-	--accent-4: #1c71d8;
-	--accent-5: #1a5fb4;
-	--red: #ae151c;
-
-	--header-bg-1: #2b2b2b;
-	--header-bg-2: #262626;
-}
-header {
-	background: linear-gradient(var(--header-bg-1), var(--header-bg-2));
+li {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
 }
 h1 {
 	margin: 0px;
 	font-size: 2.5em;
 }
-a {
-	color: var(--accent-2);
-}
-a:hover {
-	color: var(--accent-1);
-}
 code {
-	background-color: var(--lowlight);
-	outline: 1px solid var(--outline);
 	border-radius: 5px;
 	padding: 3px;
 	margin: 1px;
 }
-footer {
-	background: linear-gradient(var(--header-bg-2), var(--header-bg-1));
+
+body {
+  background-color: #ffffff; 
+  color: #000000;
 }
-li {
-	margin-top: 0.25rem;
-	margin-bottom: 0.25rem;
+header {
+	background: linear-gradient(#ffffff, #dddddd);
+}
+a {
+	color: #15539d;
+}
+a:hover {
+	color: #0e3666;
+}
+code {
+	background-color: #f0f0f0;
+	outline: 1px solid #666666;
+}
+footer {
+	background: linear-gradient(#dddddd, #ffffff);
+}
+.title-link {
+	color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+  background-color: #353535; 
+  color: #ffffff;
+}
+header {
+	background: linear-gradient(#2b2b2b, #262626);
+}
+a {
+	color: #62a0ea;
+}
+a:hover {
+	color: #99c1f1;
+}
+code {
+	background-color: #1f1f1f;
+	outline-color: #1b1b1b;
+}
+footer {
+	background: linear-gradient(#262626, #2b2b2b);
+}
+.title-link {
+	color: #ffffff;
+}
 }
 @media print {
-	body {
-		--bg: #ffffff;
-		--fg: #000000;
-		--outline: #666666;
-
-		--accent-1: #0e3666;
-		--accent-2: #15539d;
-		--accent-3: #1b6aca;
-		--accent-4: #277ce3;
-		--accent-5: #4b90e5;
-		--red: #ffcccc;
-	}
 	footer {
 		display: none;
 	}
@@ -65,21 +74,12 @@ li {
 		margin: 0;
 		padding: 0;
 	}
+
+a {
+	color: #0e3666;
 }
-@media (prefers-color-scheme: light) {
-	body {
-		--bg: #ffffff;
-		--fg: #000000;
-		--outline: #666666;
-
-		--accent-1: #0e3666;
-		--accent-2: #15539d;
-		--accent-3: #1b6aca;
-		--accent-4: #277ce3;
-		--accent-5: #4b90e5;
-		--red: #ffcccc;
-
-		--header-bg-1: #ffffff;
-		--header-bg-2: #dddddd;
-	}
+code {
+	background-color: #f0f0f0;
+	outline-color: #666666;
+}
 }

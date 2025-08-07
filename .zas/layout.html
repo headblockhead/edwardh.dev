@@ -12,7 +12,8 @@
         <script>
             document.addEventListener("DOMContentLoaded",(function(){
                 let allElements = document.getElementsByClassName("email");
-                for (const element of allElements) {
+                for (var i = 0; i < allElements.length; i++) {
+                  let element = allElements[i];
                   let output = "";
                   for (let count = 0; count < element.textContent.length; count += 2) {
                     output += String.fromCharCode(20 ^ parseInt(element.textContent.substr(count, 2), 16));
@@ -27,15 +28,15 @@
         <link rel="stylesheet" href="/shared.css" />
         <link rel="stylesheet" href="index.css" />
     </head>
-    <body style="min-height: 100vh; font-family: system-ui, sans-serif; background-color: var(--bg); color: var(--fg); margin:0px;">
+    <body style="min-height: 100vh; font-family: system-ui, sans-serif; margin:0px;">
         <header style="padding: 10px; margin: 0px;">
             <nav style="width: 1200px; max-width: 100%; margin: auto;">
-                <a href="/" style="font-size:2em; color: black; color: var(--fg); text-decoration: none; font-weight: 700;">edwardh.dev</a>
+                <a href="/" style="font-size:2em; text-decoration: none; font-weight: 700;" class="title-link">edwardh.dev</a>
                 <br />
                 <small>{{.Path}}</small>
             </nav>
         </header>
-        <article style="margin:8px;	margin-top: 16px;	width: 1200px; max-width: calc(100% - 20px); margin-left: auto; margin-right: auto;">
+        <article style="margin:8px; margin-top: 16px; width: 1200px; max-width: calc(100% - 20px); margin-left: auto; margin-right: auto;">
             {{.Body}}
         </article>
         <footer style="padding: 10px; margin: 0px;">
