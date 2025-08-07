@@ -18,5 +18,5 @@ watch -n 1 "bash -c \"rm -r .zas/deploy/* && ~/go/bin/zas\""
 directory: ./.zas/deploy
 
 ```bash
-nix run nixpkgs#python3 -- -m http.server 8088
+nix run nixpkgs#python3 -- -m http.server 8080
 ```
