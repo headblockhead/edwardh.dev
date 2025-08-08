@@ -11,9 +11,21 @@ code {
 	padding: 3px;
 	margin: 1px;
 }
-
+article {
+	border-radius: 10px;
+}
 body {
+	background-image: url(/backdrop.svg);
+}
+#spotlight {
+	mask-image: radial-gradient(circle at 50% 50%, transparent 1%, rgba(0, 0, 0, 0.8) 60%);
+}
+
+article {
   background-color: #ffffff; 
+}
+body{ 
+  background-color: #dddddd;
   color: #000000;
 }
 header {
@@ -37,10 +49,13 @@ footer {
 }
 
 @media (prefers-color-scheme: dark) {
-body {
+article {
   background-color: #353535; 
-  color: #ffffff;
 }
+body {
+	background-color: #262626;
+	  color: #ffffff;
+  }
 header {
 	background: linear-gradient(#2b2b2b, #262626);
 }
@@ -62,6 +77,10 @@ footer {
 }
 }
 @media print {
+	body {
+		background-image: none !important;
+		background-color: #ffffff;
+	}
 	footer {
 		display: none;
 	}
