@@ -1,9 +1,10 @@
 {
   description = "Edward Hesketh's professional facing website, written to be as minimal as reasonable.";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
-  outputs = { nixpkgs, ... }:
+  outputs =
+    { nixpkgs, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       zas = pkgs.buildGoModule {
@@ -22,7 +23,10 @@
       packages.edwardh-dev = pkgs.stdenv.mkDerivation {
         name = "edwardh-dev";
         src = ./.;
-        buildInputs = [ zas pkgs.minify ];
+        buildInputs = [
+          zas
+          pkgs.minify
+        ];
         buildPhase = ''
           zas
           minify -rs .zas/deploy/ -o minified
